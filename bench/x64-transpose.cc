@@ -81,6 +81,8 @@ BENCHMARK_CAPTURE(transpose, 4x2_scalar_float, xnn_x64_transposec_ukernel__4x2_s
 #if XNN_ARCH_X86 || XNN_ARCH_X86_64
   BENCHMARK_CAPTURE(transpose, 2x2_multi_mov_sse2, xnn_x64_transposec_ukernel__2x2_multi_mov_sse2)
       ->Apply(BenchmarkKernelSize)->UseRealTime();
+  BENCHMARK_CAPTURE(transpose, 2x2_multi_multi_sse2, xnn_x64_transposec_ukernel__2x2_multi_multi_sse2)
+      ->Apply(BenchmarkKernelSize)->UseRealTime();
   BENCHMARK_CAPTURE(transpose, 2x2_multi_switch_sse2, xnn_x64_transposec_ukernel__2x2_multi_switch_sse2)
       ->Apply(BenchmarkKernelSize)->UseRealTime();
   BENCHMARK_CAPTURE(transpose, 2x2_reuse_mov_sse2, xnn_x64_transposec_ukernel__2x2_reuse_mov_sse2)
@@ -89,6 +91,18 @@ BENCHMARK_CAPTURE(transpose, 4x2_scalar_float, xnn_x64_transposec_ukernel__4x2_s
       ->Apply(BenchmarkKernelSize)->UseRealTime();
   BENCHMARK_CAPTURE(transpose, 2x2_reuse_switch_sse2, xnn_x64_transposec_ukernel__2x2_reuse_switch_sse2)
       ->Apply(BenchmarkKernelSize)->UseRealTime();
+  BENCHMARK_CAPTURE(transpose, 4x4_multi_mov_avx, xnn_x64_transposec_ukernel__4x4_multi_mov_avx,
+      benchmark::utils::CheckAVX2)->Apply(BenchmarkKernelSize)->UseRealTime();
+  BENCHMARK_CAPTURE(transpose, 4x4_multi_multi_avx, xnn_x64_transposec_ukernel__4x4_multi_multi_avx,
+      benchmark::utils::CheckAVX2)->Apply(BenchmarkKernelSize)->UseRealTime();
+  BENCHMARK_CAPTURE(transpose, 4x4_multi_switch_avx, xnn_x64_transposec_ukernel__4x4_multi_switch_avx,
+      benchmark::utils::CheckAVX2)->Apply(BenchmarkKernelSize)->UseRealTime();
+  BENCHMARK_CAPTURE(transpose, 4x4_reuse_mov_avx, xnn_x64_transposec_ukernel__4x4_reuse_mov_avx,
+      benchmark::utils::CheckAVX2)->Apply(BenchmarkKernelSize)->UseRealTime();
+  BENCHMARK_CAPTURE(transpose, 4x4_reuse_multi_avx, xnn_x64_transposec_ukernel__4x4_reuse_multi_avx,
+      benchmark::utils::CheckAVX2)->Apply(BenchmarkKernelSize)->UseRealTime();
+  BENCHMARK_CAPTURE(transpose, 4x4_reuse_switch_avx, xnn_x64_transposec_ukernel__4x4_reuse_switch_avx,
+      benchmark::utils::CheckAVX2)->Apply(BenchmarkKernelSize)->UseRealTime();
 #endif  // XNN_ARCH_X86 || XNN_ARCH_X86_64
 
 

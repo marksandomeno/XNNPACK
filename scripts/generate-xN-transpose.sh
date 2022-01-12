@@ -77,6 +77,25 @@ tools/xngen src/x32-transposec/sse2.c.in -D IN_PTRS=MULTI OUT_PTRS=SWITCH SIZE=6
 tools/xngen src/x32-transposec/sse2.c.in -D IN_PTRS=MULTI OUT_PTRS=MULTI SIZE=64 -o src/x64-transposec/gen/2x2-multi-multi-sse2.c &
 tools/xngen src/x32-transposec/sse2.c.in -D IN_PTRS=MULTI OUT_PTRS=MOV SIZE=64 -o src/x64-transposec/gen/2x2-multi-mov-sse2.c &
 
+#################################### AVX ###################################
+tools/xngen src/x32-transposec/avx.c.in -D IN_PTRS=REUSE OUT_PTRS=MOV SIZE=32 ARCH=AVX SUFFIX="ps" -o src/x32-transposec/gen/8x8-reuse-mov-avx.c &
+tools/xngen src/x32-transposec/avx.c.in -D IN_PTRS=REUSE OUT_PTRS=SWITCH SIZE=32 ARCH=AVX SUFFIX="ps" -o src/x32-transposec/gen/8x8-reuse-switch-avx.c &
+tools/xngen src/x32-transposec/avx.c.in -D IN_PTRS=REUSE OUT_PTRS=MULTI SIZE=32 ARCH=AVX SUFFIX="ps" -o src/x32-transposec/gen/8x8-reuse-multi-avx.c &
+tools/xngen src/x32-transposec/avx.c.in -D IN_PTRS=MULTI OUT_PTRS=SWITCH SIZE=32 ARCH=AVX SUFFIX="ps" -o src/x32-transposec/gen/8x8-multi-switch-avx.c &
+tools/xngen src/x32-transposec/avx.c.in -D IN_PTRS=MULTI OUT_PTRS=MOV SIZE=32 ARCH=AVX SUFFIX="ps" -o src/x32-transposec/gen/8x8-multi-mov-avx.c &
+tools/xngen src/x32-transposec/avx.c.in -D IN_PTRS=REUSE OUT_PTRS=MOV SIZE=64 ARCH=AVX SUFFIX="pd" -o src/x64-transposec/gen/4x4-reuse-mov-avx.c &
+tools/xngen src/x32-transposec/avx.c.in -D IN_PTRS=REUSE OUT_PTRS=SWITCH SIZE=64 ARCH=AVX SUFFIX="pd" -o src/x64-transposec/gen/4x4-reuse-switch-avx.c &
+tools/xngen src/x32-transposec/avx.c.in -D IN_PTRS=REUSE OUT_PTRS=MULTI SIZE=64 ARCH=AVX SUFFIX="pd" -o src/x64-transposec/gen/4x4-reuse-multi-avx.c &
+tools/xngen src/x32-transposec/avx.c.in -D IN_PTRS=MULTI OUT_PTRS=SWITCH SIZE=64 ARCH=AVX SUFFIX="pd" -o src/x64-transposec/gen/4x4-multi-switch-avx.c &
+tools/xngen src/x32-transposec/avx.c.in -D IN_PTRS=MULTI OUT_PTRS=MULTI SIZE=64 ARCH=AVX SUFFIX="pd" -o src/x64-transposec/gen/4x4-multi-multi-avx.c &
+tools/xngen src/x32-transposec/avx.c.in -D IN_PTRS=MULTI OUT_PTRS=MOV SIZE=64 ARCH=AVX SUFFIX="pd" -o src/x64-transposec/gen/4x4-multi-mov-avx.c &
+
+#################################### AVX2 ###################################
+tools/xngen src/x32-transposec/avx.c.in -D IN_PTRS=REUSE OUT_PTRS=MOV SIZE=8 ARCH=AVX2 SUFFIX="epi8" -o src/x8-transposec/gen/32x32-reuse-mov-avx2.c &
+tools/xngen src/x32-transposec/avx.c.in -D IN_PTRS=REUSE OUT_PTRS=SWITCH SIZE=8 ARCH=AVX2 SUFFIX="epi8" -o src/x8-transposec/gen/32x32-reuse-switch-avx2.c &
+tools/xngen src/x32-transposec/avx.c.in -D IN_PTRS=REUSE OUT_PTRS=MOV SIZE=16 ARCH=AVX2 SUFFIX="epi16" -o src/x16-transposec/gen/16x16-reuse-mov-avx2.c &
+tools/xngen src/x32-transposec/avx.c.in -D IN_PTRS=REUSE OUT_PTRS=SWITCH SIZE=16 ARCH=AVX2 SUFFIX="epi16" -o src/x16-transposec/gen/16x16-reuse-switch-avx2.c &
+
 #################################### ARM NEON ###############################
 tools/xngen src/x32-transposec/neon-zip.c.in -D IN_PTRS=MULTI OUT_PTRS=DEC SIZE=8 VECTOR_SIZE=64 -o src/x8-transposec/gen/8x8-multi-dec-zip-neon.c &
 tools/xngen src/x32-transposec/neon-zip.c.in -D IN_PTRS=MULTI OUT_PTRS=MOV SIZE=8 VECTOR_SIZE=64 -o src/x8-transposec/gen/8x8-multi-mov-zip-neon.c &

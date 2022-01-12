@@ -5335,7 +5335,18 @@ SET(ALL_AVX_MICROKERNEL_SRCS
   src/x8-lut/gen/lut-avx-x16.c
   src/x8-lut/gen/lut-avx-x32.c
   src/x8-lut/gen/lut-avx-x48.c
-  src/x8-lut/gen/lut-avx-x64.c)
+  src/x8-lut/gen/lut-avx-x64.c
+  src/x32-transposec/gen/8x8-multi-mov-avx.c
+  src/x32-transposec/gen/8x8-multi-switch-avx.c
+  src/x32-transposec/gen/8x8-reuse-mov-avx.c
+  src/x32-transposec/gen/8x8-reuse-multi-avx.c
+  src/x32-transposec/gen/8x8-reuse-switch-avx.c
+  src/x64-transposec/gen/4x4-multi-mov-avx.c
+  src/x64-transposec/gen/4x4-multi-multi-avx.c
+  src/x64-transposec/gen/4x4-multi-switch-avx.c
+  src/x64-transposec/gen/4x4-reuse-mov-avx.c
+  src/x64-transposec/gen/4x4-reuse-multi-avx.c
+  src/x64-transposec/gen/4x4-reuse-switch-avx.c)
 
 SET(PROD_F16C_MICROKERNEL_SRCS
   src/f16-avgpool/9p8x-minmax-f16c-c8.c
@@ -6157,7 +6168,11 @@ SET(ALL_AVX2_MICROKERNEL_SRCS
   src/x8-lut/gen/lut-avx2-x32.c
   src/x8-lut/gen/lut-avx2-x64.c
   src/x8-lut/gen/lut-avx2-x96.c
-  src/x8-lut/gen/lut-avx2-x128.c)
+  src/x8-lut/gen/lut-avx2-x128.c
+  src/x8-transposec/gen/32x32-reuse-mov-avx2.c
+  src/x8-transposec/gen/32x32-reuse-switch-avx2.c
+  src/x16-transposec/gen/16x16-reuse-mov-avx2.c
+  src/x16-transposec/gen/16x16-reuse-switch-avx2.c)
 
 SET(PROD_AVX512F_MICROKERNEL_SRCS
   src/f32-dwconv/gen/up16x3-minmax-avx512f.c

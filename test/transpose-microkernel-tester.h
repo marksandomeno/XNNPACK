@@ -197,10 +197,10 @@ class TransposeMicrokernelTester {
   }
 
   void Test(xnn_x8_transposec_ukernel_function transpose) const {
-    std::vector<uint8_t> input(input_stride() * output_stride() + XNN_EXTRA_BYTES);
+    std::vector<uint8_t> input(input_stride() * output_stride() + XNN_EXTRA_BYTES, 0);
     std::vector<uint8_t> output(input_stride() * output_stride());
     for (size_t iteration = 0; iteration < iterations(); iteration++) {
-      std::iota(input.begin(), input.end(), 0);
+      //std::iota(input.begin(), input.end(), 0);
       std::fill(output.begin(), output.end(), UINT8_C(0xA5));
 
       // Call optimized micro-kernel.
@@ -218,6 +218,7 @@ class TransposeMicrokernelTester {
               << "at row " << r << " / " << block_height()
               << ", at column " << c << " / " << block_width();
         }
+        //std::cout<<std::endl;
       }
     }
   }

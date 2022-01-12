@@ -30,6 +30,12 @@
 - name: xnn_x32_transposec_ukernel__4x4_reuse_multi_sse2
 - name: xnn_x32_transposec_ukernel__4x4_reuse_switch_sse2
 - name: xnn_x32_transposec_ukernel__4x4_sse
+# x86 AVX
+- name: xnn_x32_transposec_ukernel__8x8_multi_mov_avx
+- name: xnn_x32_transposec_ukernel__8x8_multi_switch_avx
+- name: xnn_x32_transposec_ukernel__8x8_reuse_mov_avx
+- name: xnn_x32_transposec_ukernel__8x8_reuse_multi_avx
+- name: xnn_x32_transposec_ukernel__8x8_reuse_switch_avx
 # WAsm SIMD
 - name: xnn_x32_transposec_ukernel__4x4_multi_mov_wasmsimd
 - name: xnn_x32_transposec_ukernel__4x4_multi_multi_wasmsimd

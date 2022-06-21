@@ -68,10 +68,6 @@ struct transpose_context {
     xnn_transposec_ukernel_function const_size_ukernel;
     xnn_transposev_ukernel_function variable_size_ukernel;
   };
-  union {
-    size_t element_size;
-    size_t log2_element_size;
-  };
   size_t input_stride[XNN_MAX_TENSOR_DIMS];
   size_t output_stride[XNN_MAX_TENSOR_DIMS];
 };

@@ -83,6 +83,17 @@ TEST(TRANSPOSE_ND_X8, 6D) {
   } while (std::next_permutation(perm.begin(), perm.end()));
 }
 
+TEST(TRANSPOSE_ND_X8, 6D_X24) {
+  std::vector<size_t> perm{0,1,2,3,4,5};
+  do {
+    TransposeOperatorTester()
+        .num_dims(6)
+        .shape({2,4,5,6,7,3})
+        .perm(perm)
+        .TestX8();
+  } while (std::next_permutation(perm.begin(), perm.end()));
+}
+
 TEST(TRANSPOSE_ND_X16, 1D) {
   TransposeOperatorTester()
       .num_dims(1)
@@ -224,6 +235,7 @@ TEST(TRANSPOSE_ND_X32, 6D) {
         .TestX32();
   } while (std::next_permutation(perm.begin(), perm.end()));
 }
+
 
 TEST(TRANSPOSE_ND_X32, 6D_DIMS_1) {
   std::vector<size_t> perm{0,1,2,3,4,5};

@@ -460,10 +460,10 @@ SET(PROD_SCALAR_AARCH32_MICROKERNEL_SRCS
   src/x8-zip/x3-scalar.c
   src/x8-zip/x4-scalar.c
   src/x16-transposec/gen/2x4-scalar-int.c
+  src/x24-transposec/gen/1x2-scalar.c
   src/x32-packx/x2-scalar.c
   src/x32-packx/x3-scalar.c
   src/x32-packx/x4-scalar.c
-  src/x32-transposec/gen/2x4-scalar-int.c
   src/x32-unpool/scalar.c
   src/x32-zip/xm-scalar.c
   src/x32-zip/x2-scalar.c
@@ -610,6 +610,7 @@ SET(PROD_SCALAR_RISCV_MICROKERNEL_SRCS
   src/x8-zip/x3-scalar.c
   src/x8-zip/x4-scalar.c
   src/x16-transposec/gen/2x4-scalar-int.c
+  src/x24-transposec/gen/1x2-scalar.c
   src/x32-packx/x2-scalar.c
   src/x32-packx/x3-scalar.c
   src/x32-packx/x4-scalar.c
@@ -1596,6 +1597,7 @@ SET(PROD_NEON_MICROKERNEL_SRCS
   src/x8-zip/x3-neon.c
   src/x8-zip/x4-neon.c
   src/x16-transposec/gen/8x8-reuse-dec-zip-neon.c
+  src/x24-transposec/2x2-neon-tbl.c
   src/x32-packx/x4-neon-st4.c
   src/x32-transposec/gen/4x4-reuse-dec-zip-neon.c
   src/x32-unpool/neon.c
@@ -2969,6 +2971,7 @@ SET(PROD_AARCH64_NEON_MICROKERNEL_SRCS
   src/f32-vbinary/gen/vrdivc-minmax-neon-x8.c
   src/f32-vsqrt/gen/neon-sqrt-x4.c
   src/x8-lut/gen/lut-neon-tbx128x4-x64.c
+  src/x24-transposec/4x4-aarch64-tbl.c
   src/x32-transposec/4x4-aarch64-tbl.c)
 
 SET(ALL_AARCH64_NEON_MICROKERNEL_SRCS
@@ -4432,7 +4435,8 @@ SET(PROD_SSSE3_MICROKERNEL_SRCS
   src/qs8-vcvt/gen/vcvt-ssse3-x32.c
   src/qs8-vlrelu/gen/vlrelu-ssse3-x32.c
   src/qu8-vcvt/gen/vcvt-ssse3-x32.c
-  src/qu8-vlrelu/gen/vlrelu-ssse3-x32.c)
+  src/qu8-vlrelu/gen/vlrelu-ssse3-x32.c
+  src/x24-transposec/4x4-ssse3.c)
 
 SET(ALL_SSSE3_MICROKERNEL_SRCS
   src/f32-dwconv2d-chw/gen/3x3p1-minmax-ssse3-1x4-acc2.c

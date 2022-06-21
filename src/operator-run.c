@@ -28,13 +28,13 @@ void xnn_compute_transposec_2d(
     size_t tile_i,
     size_t tile_j)
 {
-  const size_t log2_element_size = context->log2_element_size;
-
+  const size_t ld_input = context->input_stride[1];
+  const size_t ld_output = context->output_stride[0];
   context->const_size_ukernel(
-      (const void*) ((uintptr_t) context->x + (i << log2_element_size) + j * context->input_stride[1]),
-      (void*) ((uintptr_t) context->y + (j << log2_element_size) + i * context->output_stride[0]),
-      context->input_stride[1],
-      context->output_stride[0],
+      (const void*) ((uintptr_t) context->x + i * context->input_stride[0] + j * context->input_stride[1]),
+      (void*) ((uintptr_t) context->y + j * context->output_stride[1] + i * context->output_stride[0]),
+      ld_input,
+      ld_output,
       tile_i,
       tile_j);
 }
@@ -47,13 +47,12 @@ void xnn_compute_transposec_3d(
     size_t tile_j,
     size_t tile_k)
 {
-  const size_t log2_element_size = context->log2_element_size;
   const size_t ld_input = context->input_stride[2];
   const size_t ld_output = context->output_stride[1];
   const void* x = (const void*) ((uintptr_t) context->x +
-                                 (i * context->input_stride[0] + j * context->input_stride[1]) + k * ld_input);
-  void* y = (void*) ((uintptr_t)context->y + i * context->output_stride[0] + j * context->output_stride[1] +
-                     (k << log2_element_size));
+                                 i * context->input_stride[0] + j * context->input_stride[1] + k * context->input_stride[2]);
+  void* y = (void*) ((uintptr_t) context->y + i * context->output_stride[0] + j * context->output_stride[1] +
+                     k * context->output_stride[2]);
 
   context->const_size_ukernel(
       x,
@@ -73,13 +72,12 @@ void xnn_compute_transposec_4d(
     size_t tile_k,
     size_t tile_l)
 {
-  const size_t log2_element_size = context->log2_element_size;
   const size_t ld_input = context->input_stride[3];
   const size_t ld_output = context->output_stride[2];
   const void* x = (const void*) ((uintptr_t)context->x + i * context->input_stride[0] + j * context->input_stride[1] +
-                                 k * context->input_stride[2] + l * ld_input);
+                                 k * context->input_stride[2] + l * context->input_stride[3]);
   void* y = (void*) ((uintptr_t)context->y + i * context->output_stride[0] + j * context->output_stride[1] +
-                     k * context->output_stride[2] + (l << log2_element_size));
+                     k * context->output_stride[2] + l * context->output_stride[3]);
 
   context->const_size_ukernel(
       x,
@@ -100,13 +98,12 @@ void xnn_compute_transposec_5d(
     size_t tile_l,
     size_t tile_m)
 {
-  const size_t log2_element_size = context->log2_element_size;
   const size_t ld_input = context->input_stride[4];
   const size_t ld_output = context->output_stride[3];
   const void* x = (const void*)((uintptr_t)context->x + i * context->input_stride[0] + j * context->input_stride[1] +
-                                 k * context->input_stride[2] + l * context->input_stride[3] + m * ld_input);
+                                 k * context->input_stride[2] + l * context->input_stride[3] + m * context->input_stride[4]);
   void* y = (void*)((uintptr_t)context->y + i * context->output_stride[0] + j * context->output_stride[1] +
-                     k * context->output_stride[2] + l * context->output_stride[3] + (m << log2_element_size));
+                     k * context->output_stride[2] + l * context->output_stride[3] + m * context->output_stride[4]);
 
   context->const_size_ukernel(
       x,
@@ -128,15 +125,14 @@ void xnn_compute_transposec_6d(
     size_t tile_m,
     size_t tile_n)
 {
-  const size_t log2_element_size = context->log2_element_size;
   const size_t ld_input = context->input_stride[5];
   const size_t ld_output = context->output_stride[4];
   const void* x = (const void*)((uintptr_t)context->x + i * context->input_stride[0] + j * context->input_stride[1] +
                                  k * context->input_stride[2] + l * context->input_stride[3] +
-                                 m * context->input_stride[4] + n * ld_input);
+                                 m * context->input_stride[4] + n * context->input_stride[5]);
   void* y = (void*)((uintptr_t)context->y + i * context->output_stride[0] + j * context->output_stride[1] +
                      k * context->output_stride[2] + l * context->output_stride[3] + m * context->output_stride[4] +
-                     (n << log2_element_size));
+                     n * context->output_stride[5]);
 
   context->const_size_ukernel(
       x,
@@ -154,12 +150,12 @@ void xnn_compute_transposev_2d(
     size_t tile_i,
     size_t tile_j)
 {
-  const size_t element_size = context->element_size;
+  const size_t element_size = context->output_stride[1];
   const size_t ld_input = context->input_stride[1];
   const size_t ld_output = context->output_stride[0];
   const void* x = (const void*) ((uintptr_t) context->x +
-                                 i * context->input_stride[0] + j * ld_input);
-  void* y = (void*) ((uintptr_t) context->y + element_size * j + i * context->output_stride[0]);
+                                 i * context->input_stride[0] + j * context->input_stride[1]);
+  void* y = (void*) ((uintptr_t) context->y + context->output_stride[1] * j + i * context->output_stride[0]);
 
   context->variable_size_ukernel(
       x,
@@ -179,13 +175,13 @@ void xnn_compute_transposev_3d(
     size_t tile_j,
     size_t tile_k)
 {
-  const size_t element_size = context->element_size;
+  const size_t element_size = context->output_stride[2];
   const size_t ld_input = context->input_stride[2];
   const size_t ld_output = context->output_stride[1];
   const void* x = (const void*)((uintptr_t)context->x + i * context->input_stride[0] + j * context->input_stride[1] +
-                                 k * ld_input);
+                                 k * context->input_stride[2]);
   void* y = (void*)((uintptr_t)context->y + i * context->output_stride[0] + j * context->output_stride[1] +
-                     k * element_size);
+                     k * context->output_stride[2]);
 
   context->variable_size_ukernel(
       x,
@@ -206,12 +202,12 @@ void xnn_compute_transposev_4d(
     size_t tile_k,
     size_t tile_l)
 {
-  const size_t element_size = context->element_size;
+  const size_t element_size = context->output_stride[3];
   const size_t ld_input = context->input_stride[3];
   const size_t ld_output = context->output_stride[2];
   const void* x = (const void*)((uintptr_t)context->x + i * context->input_stride[0] + j * context->input_stride[1] +
-                                 k * context->input_stride[2] + l * ld_input);
-  void* y = (void*)((uintptr_t)context->y + element_size * l + i * context->output_stride[0] +
+                                 k * context->input_stride[2] + l * context->input_stride[3]);
+  void* y = (void*)((uintptr_t)context->y + context->output_stride[3] * l + i * context->output_stride[0] +
                      j * context->output_stride[1] + k * context->output_stride[2]);
 
   context->variable_size_ukernel(
@@ -234,12 +230,12 @@ void xnn_compute_transposev_5d(
     size_t tile_l,
     size_t tile_m)
 {
-  const size_t element_size = context->element_size;
+  const size_t element_size = context->output_stride[4];
   const size_t ld_input = context->input_stride[4];
   const size_t ld_output = context->output_stride[3];
   const void* x = (const void*)((uintptr_t)context->x + i * context->input_stride[0] + j * context->input_stride[1] +
-                                 k * context->input_stride[2] + l * context->input_stride[3] + m * ld_input);
-  void* y = (void*)((uintptr_t)context->y + element_size * m + i * context->output_stride[0] +
+                                 k * context->input_stride[2] + l * context->input_stride[3] + m * context->input_stride[4]);
+  void* y = (void*)((uintptr_t)context->y + context->output_stride[4] * m + i * context->output_stride[0] +
                      j * context->output_stride[1] + k * context->output_stride[2] + l * context->output_stride[3]);
 
   context->variable_size_ukernel(
@@ -263,13 +259,13 @@ void xnn_compute_transposev_6d(
     size_t tile_m,
     size_t tile_n)
 {
-  const size_t element_size = context->element_size;
+  const size_t element_size = context->output_stride[5];
   const size_t ld_input = context->input_stride[5];
   const size_t ld_output = context->output_stride[4];
   const void* x = (const void*)((uintptr_t)context->x + i * context->input_stride[0] + j * context->input_stride[1] +
                                  k * context->input_stride[2] + l * context->input_stride[3] +
-                                 m * context->input_stride[4] + n * ld_input);
-  void* y = (void*)((uintptr_t)context->y + element_size * n + i * context->output_stride[0] +
+                                 m * context->input_stride[4] + n * context->input_stride[5]);
+  void* y = (void*)((uintptr_t)context->y + context->output_stride[5] * n + i * context->output_stride[0] +
                      j * context->output_stride[1] + k * context->output_stride[2] + l * context->output_stride[3] +
                      m * context->output_stride[4]);
 

@@ -705,7 +705,7 @@ enum xnn_status xnn_create_copy_nc_x8(
 {
   return create_unary_elementwise_nc(
     channels, input_stride, output_stride, flags,
-    NULL, 0, XNN_INIT_FLAG_X8,
+    NULL, 0, 0,
     xnn_operator_type_copy_nc_x8,
     xnn_params.xx.copy,
     copy_op_out);
@@ -720,7 +720,7 @@ enum xnn_status xnn_create_copy_nc_x16(
 {
   return create_unary_elementwise_nc(
     channels, input_stride, output_stride, flags,
-    NULL, 0, XNN_INIT_FLAG_X16,
+    NULL, 0, 0,
     xnn_operator_type_copy_nc_x16,
     xnn_params.xx.copy,
     copy_op_out);
@@ -735,7 +735,7 @@ enum xnn_status xnn_create_copy_nc_x32(
 {
   return create_unary_elementwise_nc(
     channels, input_stride, output_stride, flags,
-    NULL, 0, XNN_INIT_FLAG_X32,
+    NULL, 0, 0,
     xnn_operator_type_copy_nc_x32,
     xnn_params.xx.copy,
     copy_op_out);

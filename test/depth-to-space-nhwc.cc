@@ -85,6 +85,7 @@ TEST(DEPTH_TO_SPACE_NHWC_X8, input_channels_stride) {
     .input_size(7, 5)
     .block_size(3)
     .input_channels_stride(157)
+    .output_channels_stride(18)
     .output_channels(17)
     .TestNHWCxX8();
 }

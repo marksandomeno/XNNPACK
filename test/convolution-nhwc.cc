@@ -4993,6 +4993,71 @@ TEST(CONVOLUTION_NHWC_F32, weights_cache_depthwise_2x2d2) {
 
 
 #if XNN_PLATFORM_JIT
+TEST(CONVOLUTION_NHWC_F32_FUSED, jit_1x1_negate) {
+  ConvolutionOperatorTester()
+    .input_size(27, 29)
+    .kernel_size(1, 1)
+    .group_input_channels(23)
+    .group_output_channels(19)
+    .iterations(3)
+    .use_jit(true)
+    .TestNHWCxF32Fused(
+        { {xnn_fused_operator_type_negate}}
+        );
+}
+
+TEST(CONVOLUTION_NHWC_F32_FUSED, jit_1x1_hardswish) {
+  ConvolutionOperatorTester()
+    .input_size(27, 29)
+    .kernel_size(1, 1)
+    .group_input_channels(23)
+    .group_output_channels(19)
+    .iterations(3)
+    .use_jit(true)
+    .TestNHWCxF32Fused({{xnn_fused_operator_type_hardswish}});
+}
+
+TEST(CONVOLUTION_NHWC_F32_FUSED, jit_1x1_hardswish_abs) {
+  ConvolutionOperatorTester()
+    .input_size(27, 29)
+    .kernel_size(1, 1)
+    .group_input_channels(23)
+    .group_output_channels(19)
+    .iterations(3)
+    .use_jit(true)
+    .TestNHWCxF32Fused({
+      {xnn_fused_operator_type_hardswish},
+      {xnn_fused_operator_type_abs}});
+}
+
+TEST(CONVOLUTION_NHWC_F32_FUSED, jit_1x1_add) {
+  ConvolutionOperatorTester()
+    .input_size(27, 29)
+    .kernel_size(1, 1)
+    .group_input_channels(23)
+    .group_output_channels(19)
+    .iterations(3)
+    .use_jit(true)
+    .TestNHWCxF32Fused({
+      {xnn_fused_operator_type_add, 3.14f},
+    });
+}
+
+TEST(CONVOLUTION_NHWC_F32_FUSED, jit_1x1_hardswish_abs_add) {
+  ConvolutionOperatorTester()
+    .input_size(27, 29)
+    .kernel_size(1, 1)
+    .group_input_channels(23)
+    .group_output_channels(19)
+    .iterations(3)
+    .use_jit(true)
+    .TestNHWCxF32Fused({
+      {xnn_fused_operator_type_hardswish},
+      {xnn_fused_operator_type_abs},
+      {xnn_fused_operator_type_add, 3.14f},
+    });
+}
+
 TEST(CONVOLUTION_NHWC_F32, jit_1x1) {
   ConvolutionOperatorTester()
     .input_size(27, 29)

@@ -3009,6 +3009,13 @@ static void init(void) {
           xnn_params.f32.gemm.init.f32 = xnn_init_f32_minmax_scalar_params;
           xnn_params.f32.gemm.mr = 6;
           xnn_params.f32.gemm.nr = 8;
+          #if XNN_ENABLE_JIT
+            // TODO(zhin): remove this after testing
+            xnn_params.f32.gemm.generator.gemm = xnn_init_hmp_gemm_codegen(xnn_generate_f32_gemm_ukernel_upto6x8__aarch64_neonfma_prfm_cortex_a75);
+            xnn_params.f32.gemm.generator.igemm = xnn_init_hmp_igemm_codegen(xnn_generate_f32_igemm_ukernel_upto6x8__aarch64_neonfma_prfm_cortex_a75);
+            xnn_params.f32.gemm.generator.gemm1 = xnn_init_hmp_gemm_codegen(xnn_generate_f32_gemm_ukernel_1x8__aarch64_neonfma_prfm_cortex_a75);
+            xnn_params.f32.gemm.generator.igemm1 = xnn_init_hmp_igemm_codegen(xnn_generate_f32_igemm_ukernel_1x8__aarch64_neonfma_prfm_cortex_a75);
+          #endif
           break;
       }
       #if XNN_MAX_UARCH_TYPES > 1
@@ -3277,6 +3284,9 @@ static void init(void) {
       .minmax.ropc_ukernel = (xnn_vbinary_ukernel_function) xnn_f32_vaddc_minmax_ukernel__neon_x8,
       .init.f32_minmax = xnn_init_f32_minmax_scalar_params,
       .element_tile = 8,
+    };
+    xnn_params.f32.fused_vadd = (struct constant_parameters) {
+      .init.f32_constant = xnn_init_f32_constant_params,
     };
     xnn_params.f32.vdiv = (struct vbinary_parameters) {
       .minmax.op_ukernel = (xnn_vbinary_ukernel_function) xnn_f32_vdiv_minmax_ukernel__neon_x8,

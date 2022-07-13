@@ -253,6 +253,9 @@ struct xnn_node {
       size_t perm[XNN_MAX_TENSOR_DIMS];
       size_t num_dims;
     } transpose;
+    struct {
+      uint32_t block_size;
+    } space_to_depth;;
   } params;
   struct {
     float output_min;

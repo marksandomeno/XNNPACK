@@ -1303,6 +1303,27 @@ enum xnn_status xnn_define_softmax(
   uint32_t output_id,
   uint32_t flags);
 
+/// Define a Space To Depth Node and add it to a Subgraph.
+///
+/// The Space To Depth Node rearranges blocks of spatial data into blocks (a reverse transform to
+/// Depth To Space). For a given input pixel, an output square of pixels with side @a block_size is formed from values
+/// in the corresponding number of its channels. The output depth is therefore @a block_size x @a block_size times
+/// greater than that of the input.
+///
+/// @param subgraph - a Subgraph object that will own the created Node.
+/// @param input_id - Value ID for the input tensor. The input tensor must be a 4D tensor defined in the @a subgraph
+///                   with [N, IH * block_size, IW * block_size, OC] dimensions.
+/// @param output_id - Value ID for the output tensor. The output tensor must be a 4D tensor defined in the @a subgraph
+///                    with [N, IH, IW, OC * block_size * block_size] dimensions.
+/// @param block_size - the size of the spatial block.
+/// @param flags - binary features of the input_channels Node. No supported flags are currently defined.
+enum xnn_status xnn_define_space_to_depth(
+  xnn_subgraph_t subgraph,
+  uint32_t input_id,
+  uint32_t output_id,
+  uint32_t block_size,
+  uint32_t flags);
+
 /// Define a Square Node and add it to a Subgraph.
 ///
 /// @param subgraph - a Subgraph object that will own the created Node.
@@ -2189,6 +2210,23 @@ enum xnn_status xnn_setup_depth_to_space_nchw2nhwc_x32(
   void* output,
   pthreadpool_t threadpool);
 
+enum xnn_status xnn_create_space_to_depth_nhwc_x32(
+  size_t input_channels,
+  size_t input_channel_stride,
+  size_t output_channel_stride,
+  uint32_t block_size,
+  uint32_t flags,
+  xnn_operator_t* space_to_depth_op_out);
+
+enum xnn_status xnn_setup_space_to_depth_nhwc_x32(
+  xnn_operator_t space_to_depth_op,
+  size_t batch_size,
+  size_t input_height,
+  size_t input_width,
+  const void* input,
+  void* output,
+  pthreadpool_t threadpool);
+
 enum xnn_status xnn_create_transpose_nd_x32(
     uint32_t flags,
     xnn_operator_t* transpose_op_out);
@@ -2778,6 +2816,23 @@ enum xnn_status xnn_create_depth_to_space_nhwc_x16(
 
 enum xnn_status xnn_setup_depth_to_space_nhwc_x16(
   xnn_operator_t depth_to_space_op,
+  size_t batch_size,
+  size_t input_height,
+  size_t input_width,
+  const void* input,
+  void* output,
+  pthreadpool_t threadpool);
+
+enum xnn_status xnn_create_space_to_depth_nhwc_x16(
+  size_t input_channels,
+  size_t input_channel_stride,
+  size_t output_channel_stride,
+  uint32_t block_size,
+  uint32_t flags,
+  xnn_operator_t* space_to_depth_op_out);
+
+enum xnn_status xnn_setup_space_to_depth_nhwc_x16(
+  xnn_operator_t space_to_depth_op,
   size_t batch_size,
   size_t input_height,
   size_t input_width,
@@ -3613,6 +3668,23 @@ enum xnn_status xnn_create_depth_to_space_nhwc_x8(
 
 enum xnn_status xnn_setup_depth_to_space_nhwc_x8(
   xnn_operator_t depth_to_space_op,
+  size_t batch_size,
+  size_t input_height,
+  size_t input_width,
+  const void* input,
+  void* output,
+  pthreadpool_t threadpool);
+
+enum xnn_status xnn_create_space_to_depth_nhwc_x8(
+  size_t input_channels,
+  size_t input_channel_stride,
+  size_t output_channel_stride,
+  uint32_t block_size,
+  uint32_t flags,
+  xnn_operator_t* space_to_depth_op_out);
+
+enum xnn_status xnn_setup_space_to_depth_nhwc_x8(
+  xnn_operator_t space_to_depth_op,
   size_t batch_size,
   size_t input_height,
   size_t input_width,

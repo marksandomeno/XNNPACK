@@ -1393,6 +1393,8 @@ class ConvolutionOperatorTester {
 
       #if XNN_PLATFORM_JIT
         if (use_jit()) {
+          // Check that we actually generated code.
+          ASSERT_GT(code_cache.cache.code.size, 0);
           xnn_finalize_code_memory(&code_cache.cache.code);
         }
       #endif
